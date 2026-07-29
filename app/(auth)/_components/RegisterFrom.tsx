@@ -21,9 +21,44 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Controller, useForm } from "react-hook-form";
+import { RegisterFormValues } from "@/lib/type";
+import { registerAction } from "../_actions/authActions";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormValues>();
+  const router = useRouter();
+
+  const onSubmit = async (data: RegisterFormValues) => {
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("phone", data.phone);
+    formData.append("role", data.role);
+    if (data.profileImage) {
+      formData.append("profileImage", data.profileImage);
+    }
+
+    const result = await registerAction("/auth/login", data);
+    console.log(result);
+    if (result.success) {
+      reset();
+      router.push("/auth/login");
+      toast.success("Account created successfully! Please log in.");
+    }
+  };
 
   return (
     <section className="flex min-h-screen items-center justify-center bg-background px-4 py-10">
@@ -39,7 +74,7 @@ export default function RegisterForm() {
         </CardHeader>
 
         <CardContent>
-          <form className="space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Name */}
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
@@ -48,7 +83,7 @@ export default function RegisterForm() {
                 <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
                 <Input
-                  id="name"
+                  {...register("name")}
                   type="text"
                   placeholder="Enter your full name"
                   className="h-10 rounded-xl border-0 bg-muted pl-10 shadow-none focus-visible:bg-background"
@@ -64,7 +99,7 @@ export default function RegisterForm() {
                 <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
                 <Input
-                  id="email"
+                  {...register("email")}
                   type="email"
                   placeholder="Enter your email"
                   className="h-10 rounded-xl border-0 bg-muted pl-10 shadow-none focus-visible:bg-background"
@@ -80,7 +115,7 @@ export default function RegisterForm() {
                 <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
                 <Input
-                  id="phone"
+                  {...register("phone")}
                   type="tel"
                   placeholder="Enter your phone number"
                   className="h-10 rounded-xl border-0 bg-muted pl-10 shadow-none focus-visible:bg-background"
@@ -92,16 +127,28 @@ export default function RegisterForm() {
             <div className="space-y-2">
               <Label>Account Type</Label>
 
-              <Select defaultValue="USER">
-                <SelectTrigger className="h-10 w-full rounded-xl border-0 bg-muted px-3 shadow-none focus:ring-0">
-                  <SelectValue placeholder="Select account type" />
-                </SelectTrigger>
+              <Controller
+                name="role"
+                control={control}
+                rules={{
+                  required: "Please select a role",
+                }}
+                render={({ field }) => (
+                  <Select
+                    value={field.value ?? ""}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger className="h-10 w-full rounded-xl border-0 bg-muted px-3 shadow-none focus:ring-0">
+                      <SelectValue placeholder="Select Role" />
+                    </SelectTrigger>
 
-                <SelectContent className="rounded-xl">
-                  <SelectItem value="USER">Customer</SelectItem>
-                  <SelectItem value="TECHNICIAN">Technician</SelectItem>
-                </SelectContent>
-              </Select>
+                    <SelectContent>
+                      <SelectItem value="CUSTOMER">Customer</SelectItem>
+                      <SelectItem value="TECHNICIAN">Technician</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
             </div>
 
             {/* Password */}
@@ -112,7 +159,7 @@ export default function RegisterForm() {
                 <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
                 <Input
-                  id="password"
+                  {...register("password")}
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a password"
                   className="h-10 rounded-xl border-0 bg-muted px-10 shadow-none focus-visible:bg-background "
@@ -140,9 +187,9 @@ export default function RegisterForm() {
                 <Upload className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
                 <Input
-                  id="profileImage"
-                  type="file"
-                  accept="image/*"
+                  {...register("profileImage")}
+                  type="url"
+                  placeholder="Enter the URL of your profile image"
                   className="h-10 rounded-xl border-0 bg-muted pl-10 shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium"
                 />
               </div>
@@ -150,7 +197,7 @@ export default function RegisterForm() {
 
             {/* Register */}
             <Button type="submit" className="w-full cursor-pointer">
-              Create Account
+              {isSubmitting ? "Create Account..." : "Register"}
             </Button>
 
             <div className="flex items-center gap-3">

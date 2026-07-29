@@ -13,10 +13,27 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { useState } from "react";
+import { useActionState, useState } from "react";
+import { loginAction } from "../_actions/authActions";
+import { useForm } from "react-hook-form";
+
+import { LoginFormValues } from "@/lib/type";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormValues>();
+
+  const onSubmit = async (data: LoginFormValues) => {
+    const result = await loginAction("/", data);
+    console.log(result);
+  };
+
+  // const [state, action, pending] = useActionState(loginAction, false);
 
   return (
     <section className="flex min-h-screen items-center justify-center bg-background px-4 py-10">
@@ -32,7 +49,7 @@ export default function LoginForm() {
         </CardHeader>
 
         <CardContent>
-          <form className="space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Email */}
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
@@ -41,11 +58,15 @@ export default function LoginForm() {
                 <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
                 <Input
-                  id="email"
+                  {...register("email")}
                   type="email"
                   placeholder="Enter your email"
                   className="h-10 rounded-xl border-0 bg-muted pl-10 shadow-none focus-visible:bg-background"
                 />
+
+                {errors.email && (
+                  <p className="text-red-500 text-sm">{errors.email.message}</p>
+                )}
               </div>
             </div>
 
@@ -57,11 +78,17 @@ export default function LoginForm() {
                 <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
                 <Input
-                  id="password"
+                  {...register("password")}
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   className="h-10 rounded-xl border-0 bg-muted px-10 shadow-none focus-visible:bg-background"
                 />
+
+                {errors.password && (
+                  <p className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </p>
+                )}
 
                 <button
                   type="button"
@@ -77,8 +104,8 @@ export default function LoginForm() {
               </div>
             </div>
             {/* Login Button */}
-            <Button type="submit" className="w-full">
-              Login
+            <Button type="submit" disabled={isSubmitting} className="w-full">
+              {isSubmitting ? "Logging in..." : "Login"}
             </Button>
 
             <div className="flex items-center gap-3">
@@ -90,7 +117,7 @@ export default function LoginForm() {
             </div>
 
             <Button variant="outline" className="w-full">
-              <Link href="/register">Create an Account</Link>
+              <Link href="/auth/register">Create an Account</Link>
             </Button>
           </form>
         </CardContent>
