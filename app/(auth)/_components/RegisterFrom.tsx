@@ -26,6 +26,8 @@ import { RegisterFormValues } from "@/lib/type";
 import { registerAction } from "../_actions/authActions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { registerSchema } from "@/lib/validation/auth.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +38,9 @@ export default function RegisterForm() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<RegisterFormValues>();
+  } = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+  });
   const router = useRouter();
 
   const onSubmit = async (data: RegisterFormValues) => {
@@ -89,6 +93,9 @@ export default function RegisterForm() {
                   className="h-10 rounded-xl border-0 bg-muted pl-10 shadow-none focus-visible:bg-background"
                 />
               </div>
+              {errors.name?.message && (
+                <p className="text-red-500 text-sm">{errors.name.message}</p>
+              )}
             </div>
 
             {/* Email */}
@@ -105,6 +112,9 @@ export default function RegisterForm() {
                   className="h-10 rounded-xl border-0 bg-muted pl-10 shadow-none focus-visible:bg-background"
                 />
               </div>
+              {errors.email?.message && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
             </div>
 
             {/* Phone */}
@@ -121,6 +131,9 @@ export default function RegisterForm() {
                   className="h-10 rounded-xl border-0 bg-muted pl-10 shadow-none focus-visible:bg-background"
                 />
               </div>
+              {errors.phone?.message && (
+                <p className="text-red-500 text-sm ">{errors.phone.message}</p>
+              )}
             </div>
 
             {/* Role */}
@@ -149,6 +162,10 @@ export default function RegisterForm() {
                   </Select>
                 )}
               />
+
+              {errors.role?.message && (
+                <p className="text-red-500 text-sm">{errors.role.message}</p>
+              )}
             </div>
 
             {/* Password */}
@@ -177,6 +194,11 @@ export default function RegisterForm() {
                   )}
                 </button>
               </div>
+              {errors.password?.message && (
+                <p className="text-red-500 text-sm">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             {/* Profile Image */}

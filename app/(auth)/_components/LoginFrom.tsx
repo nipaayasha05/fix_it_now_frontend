@@ -13,11 +13,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { useActionState, useState } from "react";
+import { useState } from "react";
 import { loginAction } from "../_actions/authActions";
 import { useForm } from "react-hook-form";
-
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormValues } from "@/lib/type";
+import { loginSchema } from "@/lib/validation/auth.validation";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +27,9 @@ export default function LoginForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormValues>();
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
 
   const onSubmit = async (data: LoginFormValues) => {
     const result = await loginAction("/", data);
@@ -63,11 +66,12 @@ export default function LoginForm() {
                   placeholder="Enter your email"
                   className="h-10 rounded-xl border-0 bg-muted pl-10 shadow-none focus-visible:bg-background"
                 />
-
-                {errors.email && (
-                  <p className="text-red-500 text-sm">{errors.email.message}</p>
-                )}
               </div>
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* Password */}
@@ -84,12 +88,6 @@ export default function LoginForm() {
                   className="h-10 rounded-xl border-0 bg-muted px-10 shadow-none focus-visible:bg-background"
                 />
 
-                {errors.password && (
-                  <p className="text-red-500 text-sm">
-                    {errors.password.message}
-                  </p>
-                )}
-
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -102,6 +100,11 @@ export default function LoginForm() {
                   )}
                 </button>
               </div>
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
             {/* Login Button */}
             <Button type="submit" disabled={isSubmitting} className="w-full">
