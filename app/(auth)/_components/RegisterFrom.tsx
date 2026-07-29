@@ -32,6 +32,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const [serverError, setServerError] = useState("");
+
   const {
     register,
     control,
@@ -61,6 +63,11 @@ export default function RegisterForm() {
       reset();
       router.push("/auth/login");
       toast.success("Account created successfully! Please log in.");
+    }
+
+    if (!result.success) {
+      setServerError(result.message);
+      return;
     }
   };
 
@@ -233,6 +240,9 @@ export default function RegisterForm() {
             <Button variant="outline" className="w-full cursor-pointer">
               <Link href="/auth/login">Already have an account?</Link>
             </Button>
+            {serverError && (
+              <p className="text-center text-sm text-red-500">{serverError}</p>
+            )}
           </form>
         </CardContent>
       </Card>

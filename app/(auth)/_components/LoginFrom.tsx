@@ -23,6 +23,8 @@ import { loginSchema } from "@/lib/validation/auth.validation";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const [serverError, setServerError] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -34,6 +36,11 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginFormValues) => {
     const result = await loginAction("/", data);
     console.log(result);
+
+    if (!result.success) {
+      setServerError(result.message);
+      return;
+    }
   };
 
   // const [state, action, pending] = useActionState(loginAction, false);
@@ -122,6 +129,9 @@ export default function LoginForm() {
             <Button variant="outline" className="w-full">
               <Link href="/auth/register">Create an Account</Link>
             </Button>
+            {serverError && (
+              <p className="text-center text-sm text-red-500">{serverError}</p>
+            )}
           </form>
         </CardContent>
       </Card>
