@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   User,
@@ -32,6 +32,8 @@ import { Button } from "../ui/button";
 import { useTheme } from "next-themes";
 import { useContext, useEffect, useState } from "react";
 import { userContext } from "@/app/context/userContext";
+import { logout } from "@/app/service/auth/logout";
+import { toast } from "sonner";
 
 // Nav links kept in an array to stay organized
 const navLinks = [
@@ -52,9 +54,17 @@ const userMenuItems = [
 export function Navbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-
+  const router = useRouter();
   const user = useContext(userContext);
   console.log(user);
+
+  const handleLogout = async (action: string) => {
+    if (action === "logout") {
+      await logout();
+      toast.success("Logout successfully");
+      router.push("/auth/login");
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full  border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -123,124 +133,140 @@ export function Navbar() {
           </Button>
 
           {/* Mobile Menu */}
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger render={<Button variant="ghost" size="icon" />}>
-                <Menu className="h-6 w-6" />
-              </SheetTrigger>
+          {user?.success ? (
+            <div className="md:hidden">
+              <Sheet>
+                <SheetTrigger render={<Button variant="ghost" size="icon" />}>
+                  <Menu className="h-6 w-6" />
+                </SheetTrigger>
 
-              <SheetContent side="right" className="w-72">
-                <div className="mt-8 flex flex-col  gap-2">
-                  <div className="px-2 py-2 space-y-1 flex flex-col  items-center border-b border-border/50">
-                    <Avatar className="size-10">
-                      <AvatarImage
-                        src={user?.data?.profileImage}
-                        alt={user?.data?.name}
-                      />
-                      <AvatarFallback>{user?.data?.name}</AvatarFallback>
-                    </Avatar>
+                <SheetContent side="right" className="w-72">
+                  <div className="mt-8 flex flex-col  gap-2">
+                    <div className="px-2 py-2 space-y-1 flex flex-col  items-center border-b border-border/50">
+                      <Avatar className="size-10">
+                        <AvatarImage
+                          src={user?.data?.profileImage}
+                          alt={user?.data?.name}
+                        />
+                        <AvatarFallback>{user?.data?.name}</AvatarFallback>
+                      </Avatar>
+                      <p className="font-medium">{user?.data?.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {user?.data?.email}
+                      </p>
+                    </div>
+                    {navLinks.map((link) => {
+                      const Icon = link.icon;
+                      const isActive = pathname === link.href;
+
+                      return (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className={cn(
+                            "flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium",
+                            isActive
+                              ? "bg-primary text-primary-foreground"
+                              : "hover:bg-accent",
+                          )}
+                        >
+                          <Icon className="h-5 w-5" />
+                          {link.label}
+                        </Link>
+                      );
+                    })}
+
+                    {/* User Menu */}
+                    {userMenuItems.map((item) => {
+                      const Icon = item.icon;
+
+                      return (
+                        <Link
+                          key={item.label}
+                          href={item.href}
+                          className="flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium hover:bg-accent"
+                        >
+                          <Icon className="h-5 w-5" />
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+
+                    <Button
+                      onClick={() => handleLogout("logout")}
+                      variant="ghost"
+                      className="justify-start gap-3 text-destructive hover:text-destructive"
+                    >
+                      <LogOut className="h-5 w-5" />
+                      Log out
+                    </Button>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+          ) : null}
+
+          {/* use dropdown menu */}
+          {user?.success ? (
+            <div className="hidden md:block">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-accent">
+                  <Avatar className="size-10">
+                    <AvatarImage
+                      src={user?.data?.profileImage}
+                      alt={user?.data?.name}
+                    />
+                    <AvatarFallback>{user?.data?.name}</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent className="w-56" align="end">
+                  <div className="px-2 py-2">
                     <p className="font-medium">{user?.data?.name}</p>
                     <p className="text-xs text-muted-foreground">
                       {user?.data?.email}
                     </p>
                   </div>
-                  {navLinks.map((link) => {
-                    const Icon = link.icon;
-                    const isActive = pathname === link.href;
 
-                    return (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className={cn(
-                          "flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium",
-                          isActive
-                            ? "bg-primary text-primary-foreground"
-                            : "hover:bg-accent",
-                        )}
-                      >
-                        <Icon className="h-5 w-5" />
-                        {link.label}
-                      </Link>
-                    );
-                  })}
+                  <DropdownMenuSeparator />
 
-                  {/* User Menu */}
-                  {userMenuItems.map((item) => {
-                    const Icon = item.icon;
+                  <DropdownMenuGroup>
+                    {userMenuItems.map((item) => {
+                      const Icon = item.icon;
 
-                    return (
-                      <Link
-                        key={item.label}
-                        href={item.href}
-                        className="flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium hover:bg-accent"
-                      >
-                        <Icon className="h-5 w-5" />
-                        {item.label}
-                      </Link>
-                    );
-                  })}
+                      return (
+                        <DropdownMenuItem key={item.href}>
+                          <Link
+                            href={item.href}
+                            className="flex w-full items-center gap-2"
+                          >
+                            <Icon className="h-4 w-4" />
+                            {item.label}
+                          </Link>
+                        </DropdownMenuItem>
+                      );
+                    })}
+                  </DropdownMenuGroup>
 
-                  <Button
-                    variant="ghost"
-                    className="justify-start gap-3 text-destructive hover:text-destructive"
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuItem
+                    onClick={() => handleLogout("logout")}
+                    className="cursor-pointer text-destructive focus:text-destructive"
                   >
-                    <LogOut className="h-5 w-5" />
+                    <LogOut className="h-4 w-4" />
                     Log out
-                  </Button>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-          <div className="hidden md:block">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-accent">
-                <Avatar className="size-10">
-                  <AvatarImage
-                    src={user?.data?.profileImage}
-                    alt={user?.data?.name}
-                  />
-                  <AvatarFallback>{user?.data?.name}</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent className="w-56" align="end">
-                <div className="px-2 py-2">
-                  <p className="font-medium">{user?.data?.name}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {user?.data?.email}
-                  </p>
-                </div>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuGroup>
-                  {userMenuItems.map((item) => {
-                    const Icon = item.icon;
-
-                    return (
-                      <DropdownMenuItem key={item.href}>
-                        <Link
-                          href={item.href}
-                          className="flex w-full items-center gap-2"
-                        >
-                          <Icon className="h-4 w-4" />
-                          {item.label}
-                        </Link>
-                      </DropdownMenuItem>
-                    );
-                  })}
-                </DropdownMenuGroup>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive">
-                  <LogOut className="h-4 w-4" />
-                  Log out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <Link href="/auth/login">
+              <Button variant="default" className="cursor-pointer ">
+                Login
+              </Button>
+            </Link>
+          )}
         </div>
       </nav>
     </header>
