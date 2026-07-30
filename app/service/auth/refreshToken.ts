@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { jwtUtils } from "../utils/jwt";
+import { jwtUtils } from "../../utils/jwt";
 
 export const getNewAccessToken = async () => {
   const cookieStore = await cookies();

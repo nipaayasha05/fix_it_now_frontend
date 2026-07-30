@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,7 +30,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { userContext } from "@/app/context/userContext";
 
 // Nav links kept in an array to stay organized
 const navLinks = [
@@ -51,20 +52,15 @@ const userMenuItems = [
 export function Navbar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
-  // useEffect(() => {
-  //   setMounted(true);
-  // }, []);
-  // if (!mounted) {
-  //   return null;
-  // }
+  const user = useContext(userContext);
+  console.log(user);
 
   return (
     <header className="sticky top-0 z-50 w-full  border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4">
+      <nav className="mx-auto flex h-20 container items-center justify-between px-4 ">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-1">
+        <Link href="/" className="flex items-center gap-1 shrink-0">
           <div className="">
             <Image
               src="/fixItNow1.png"
@@ -77,7 +73,7 @@ export function Navbar() {
             <Image
               src="/fixDarkOrange2.png"
               alt="Dark Logo"
-              width={60}
+              width={55}
               height={55}
               className="hidden dark:block h-16 w-auto"
             />
@@ -91,7 +87,7 @@ export function Navbar() {
         </Link>
 
         {/* Nav links */}
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center  gap- md:flex">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
@@ -114,7 +110,7 @@ export function Navbar() {
           })}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-end gap-2">
           {/* Theme Button */}
           <Button
             variant="outline"
@@ -134,11 +130,18 @@ export function Navbar() {
               </SheetTrigger>
 
               <SheetContent side="right" className="w-72">
-                <div className="mt-8 flex flex-col gap-2">
-                  <div className="px-2 py-2">
-                    <p className="font-medium">Jane Doe</p>
+                <div className="mt-8 flex flex-col  gap-2">
+                  <div className="px-2 py-2 space-y-1 flex flex-col  items-center border-b border-border/50">
+                    <Avatar className="size-10">
+                      <AvatarImage
+                        src={user?.data?.profileImage}
+                        alt={user?.data?.name}
+                      />
+                      <AvatarFallback>{user?.data?.name}</AvatarFallback>
+                    </Avatar>
+                    <p className="font-medium">{user?.data?.name}</p>
                     <p className="text-xs text-muted-foreground">
-                      jane@acme.com
+                      {user?.data?.email}
                     </p>
                   </div>
                   {navLinks.map((link) => {
@@ -189,50 +192,55 @@ export function Navbar() {
               </SheetContent>
             </Sheet>
           </div>
-        </div>
+          <div className="hidden md:block">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-accent">
+                <Avatar className="size-10">
+                  <AvatarImage
+                    src={user?.data?.profileImage}
+                    alt={user?.data?.name}
+                  />
+                  <AvatarFallback>{user?.data?.name}</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
 
-        <div className="hidden md:block">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-accent">
-              <Avatar className="size-9">
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end">
+                <div className="px-2 py-2">
+                  <p className="font-medium">{user?.data?.name}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {user?.data?.email}
+                  </p>
+                </div>
 
-            <DropdownMenuContent className="w-56" align="end">
-              <div className="px-2 py-2">
-                <p className="font-medium">Jane Doe</p>
-                <p className="text-xs text-muted-foreground">jane@acme.com</p>
-              </div>
+                <DropdownMenuSeparator />
 
-              <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  {userMenuItems.map((item) => {
+                    const Icon = item.icon;
 
-              <DropdownMenuGroup>
-                {userMenuItems.map((item) => {
-                  const Icon = item.icon;
+                    return (
+                      <DropdownMenuItem key={item.href}>
+                        <Link
+                          href={item.href}
+                          className="flex w-full items-center gap-2"
+                        >
+                          <Icon className="h-4 w-4" />
+                          {item.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuGroup>
 
-                  return (
-                    <DropdownMenuItem key={item.href}>
-                      <Link
-                        href={item.href}
-                        className="flex w-full items-center gap-2"
-                      >
-                        <Icon className="h-4 w-4" />
-                        {item.label}
-                      </Link>
-                    </DropdownMenuItem>
-                  );
-                })}
-              </DropdownMenuGroup>
+                <DropdownMenuSeparator />
 
-              <DropdownMenuSeparator />
-
-              <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive">
-                <LogOut className="h-4 w-4" />
-                Log out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive">
+                  <LogOut className="h-4 w-4" />
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </nav>
     </header>
