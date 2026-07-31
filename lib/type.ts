@@ -37,3 +37,56 @@ export type TUserResponse = {
   message: string;
   data: TUser;
 };
+
+export type TTechnician = {
+  id: string;
+  technicianId: string;
+  bio: string | null;
+  experience: number;
+  location: string;
+  skills: string[];
+  status: "AVAILABLE" | "UNAVAILABLE";
+  averageRating: string;
+  totalReviews: number;
+  createdAt: string;
+  updatedAt: string;
+
+  technician: TUser;
+};
+
+export type TCategory = {
+  id: string;
+  name: string;
+  description: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TService = {
+  id: string;
+  title: string;
+  description: string | null;
+  price: number;
+  duration: number | null;
+  technicianId: string;
+  categoryId: string;
+  createdAt: string;
+  updatedAt: string;
+
+  technician: TTechnician;
+  category: TCategory;
+};
+
+export type TServicesResponse = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: TService[];
+};
+
+export type TServiceResponse = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: TService;
+};

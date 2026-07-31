@@ -32,7 +32,8 @@ import { Button } from "../ui/button";
 import { useTheme } from "next-themes";
 import { useContext, useEffect, useState } from "react";
 import { userContext } from "@/app/context/userContext";
-import { logout } from "@/app/service/auth/logout";
+import { logout } from "@/app/server/auth/logout";
+
 import { toast } from "sonner";
 
 // Nav links kept in an array to stay organized

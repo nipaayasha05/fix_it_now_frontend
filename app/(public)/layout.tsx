@@ -5,7 +5,7 @@ import { getMe } from "../server/auth/getMe";
 
 // import { getMe } from "../service/getMe";
 
-const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
+const PublicLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = await getMe();
   return (
     <div className="">
@@ -17,4 +17,4 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default AuthLayout;
+export default PublicLayout;
