@@ -1,17 +1,17 @@
 import React from "react";
-import AllServices from "../_components/services/AllServices";
+import AllTechnicians from "../_components/technicians/AllTechnicians";
 
-const servicesPage = () => {
+const TechnicianPage = () => {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-3xl text-primary font-bold text-center mb-8 mt-8">
-        All Services
+        All Technicians
       </h1>
       <div>
-        <AllServices />
+        <AllTechnicians />
       </div>
     </div>
   );
 };
 
-export default servicesPage;
+export default TechnicianPage;
