@@ -26,9 +26,9 @@ type Props = {
 };
 
 export default function ServiceDetails({ service }: Props) {
-  console.log(service);
-  console.log(service.technician);
-  console.log(service.technician?.technician);
+  // console.log(service);
+  // console.log(service.technician);
+  // console.log(service.technician?.technician);
   return (
     <div className="mx-auto max-w-7xl px-5 py-10">
       <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
@@ -233,7 +233,7 @@ export default function ServiceDetails({ service }: Props) {
 
             <Button className="group mt-8 h-12 w-full rounded-xl bg-cta text-white transition-all duration-300 hover:scale-[1.02] hover:bg-cta/90 hover:shadow-xl">
               <Link
-                href={`/booking/${service.id}`}
+                href={`/technicians/${service.technician.id}`}
                 className="flex w-full items-center justify-center"
               >
                 Book This Service

@@ -1,0 +1,15 @@
+import { ISidebarItem } from "@/lib/type";
+import { FileText, LayoutDashboard } from "lucide-react";
+
+export const TECHNICIAN_SIDEBAR_ITEMS: ISidebarItem[] = [
+  {
+    label: "Dashboard",
+    href: "/technicianDashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    label: "My Posts",
+    href: "/technicianDashboard/my-posts",
+    icon: FileText,
+  },
+];

@@ -1,5 +1,7 @@
 import z from "zod";
 import { loginSchema, registerSchema } from "./validation/auth.validation";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
+import { LucideProps } from "lucide-react";
 
 // type LoginFormValues = {
 //   email: string;
@@ -137,4 +139,12 @@ export type TBooking = {
 
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type ISidebarItem = {
+  label: string;
+  href: string;
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
 };

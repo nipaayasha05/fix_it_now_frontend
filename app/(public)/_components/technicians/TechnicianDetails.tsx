@@ -79,7 +79,7 @@ const TechnicianDetailsPage = async ({ params }: Props) => {
       </section>
 
       {/* Mobile CTA */}
-      <MobileBookingBar />
+      {/* <MobileBookingBar /> */}
     </main>
   );
 };

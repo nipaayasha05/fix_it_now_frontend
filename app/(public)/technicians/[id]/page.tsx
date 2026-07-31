@@ -11,7 +11,7 @@ type Props = {
 const TechnicianById = async ({ params }: Props) => {
   const { id } = await params;
   const technicianResponse = await getTechnicianById(id);
-  console.log(technicianResponse);
+  // console.log(technicianResponse);
 
   return (
     <div>

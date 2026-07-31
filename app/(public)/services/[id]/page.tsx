@@ -12,7 +12,7 @@ type Props = {
 const serviceById = async ({ params }: Props) => {
   const { id } = await params;
   const serviceResponse = await getServiceById(id);
-  console.log(serviceById);
+  // console.log(serviceById);
 
   return (
     <div>

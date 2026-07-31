@@ -85,11 +85,11 @@ export default function BookingCard({ technician }: BookingCardProps) {
       return;
     }
 
-    console.log({
-      serviceId: selectedService.id,
-      availabilityId: selectedSlot.id,
-      note,
-    });
+    // console.log({
+    //   serviceId: selectedService.id,
+    //   availabilityId: selectedSlot.id,
+    //   note,
+    // });
 
     /**
      * TODO:
@@ -274,7 +274,7 @@ export default function BookingCard({ technician }: BookingCardProps) {
         {/* BOOK BUTTON */}
 
         <Button
-          className="w-full h-11 bg-orange-500 hover:bg-orange-600"
+          className="w-full h-11 bg-cta hover:bg-cta/90"
           disabled={
             technician.status !== "AVAILABLE" || !selectedAvailabilityId
           }

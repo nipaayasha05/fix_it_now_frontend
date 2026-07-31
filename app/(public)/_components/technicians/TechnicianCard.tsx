@@ -27,7 +27,7 @@ type TechnicianCardProps = {
 };
 
 const TechnicianCard = ({ technician }: TechnicianCardProps) => {
-  console.log("technician", technician);
+  // console.log("technician", technician);
   return (
     <Card className="group relative overflow-hidden border-border/70 pt-0 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10">
       <div className="h-20 bg-[linear-gradient(120deg,var(--color-primary),color-mix(in_oklab,var(--color-cta)_70%,var(--color-primary)))]" />
