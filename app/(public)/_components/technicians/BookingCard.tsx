@@ -23,6 +23,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { createBookings } from "../../_actions/bookings/bookingActions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type BookingCardProps = {
   technician: TTechnician;
@@ -32,10 +35,9 @@ export default function BookingCard({ technician }: BookingCardProps) {
   const [selectedServiceId, setSelectedServiceId] = useState(
     technician.services[0]?.id ?? "",
   );
+  const router = useRouter();
 
   const [selectedAvailabilityId, setSelectedAvailabilityId] = useState("");
-
-  const [note, setNote] = useState("");
 
   /**
    * Selected Service
@@ -57,6 +59,28 @@ export default function BookingCard({ technician }: BookingCardProps) {
     );
   }, [selectedAvailabilityId, technician.availabilities]);
 
+  const handleBooking = async () => {
+    if (!selectedService) return;
+
+    if (!selectedSlot) {
+      alert("Please select an available slot.");
+      return;
+    }
+
+    try {
+      await createBookings({
+        technicianId: technician.id,
+        serviceId: selectedServiceId,
+        availabilityId: selectedAvailabilityId,
+      });
+
+      toast.success("Booking successful!");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   /**
    * Group slots by day
    */
@@ -76,26 +100,6 @@ export default function BookingCard({ technician }: BookingCardProps) {
       {} as Record<string, TAvailability[]>,
     );
   }, [technician.availabilities]);
-
-  const handleBooking = () => {
-    if (!selectedService) return;
-
-    if (!selectedSlot) {
-      alert("Please select an available slot.");
-      return;
-    }
-
-    // console.log({
-    //   serviceId: selectedService.id,
-    //   availabilityId: selectedSlot.id,
-    //   note,
-    // });
-
-    /**
-     * TODO:
-     * call booking api
-     */
-  };
 
   const selectedService = technician.services.find(
     (service) => service.id === selectedServiceId,

@@ -1,3 +1,4 @@
+"use server";
 import { cookies } from "next/headers";
 import { jwtUtils } from "../../utils/jwt";
 
@@ -62,6 +63,54 @@ export const isAccessTokenExist = async () => {
         httpOnly: true,
         maxAge: 60 * 60 * 24,
         sameSite: true,
+      });
+      accessToken = newAccessToken;
+    }
+  }
+  return accessToken;
+};
+
+export const isAccessTokenExists = async () => {
+  const cookieStore = await cookies();
+
+  let accessToken = cookieStore.get("accessToken")?.value || null;
+  const refreshToken = cookieStore.get("refreshToken")?.value || null;
+
+  if (!accessToken && !refreshToken) {
+    return {
+      success: false,
+      error: "Access token and refresh token not found",
+    };
+  }
+
+  const decodedAccessToken = accessToken
+    ? jwtUtils.verifiedToken(
+        accessToken,
+        process.env.JWT_ACCESS_SECRET as string,
+      )
+    : null;
+
+  const decodedRefreshToken = refreshToken
+    ? jwtUtils.verifiedToken(
+        refreshToken,
+        process.env.JWT_REFRESH_SECRET as string,
+      )
+    : null;
+
+  if (!decodedAccessToken?.success && decodedRefreshToken?.success) {
+    console.log(decodedRefreshToken, "decodedRefreshToken");
+    // access token has expired but refresh token is valid
+
+    const result = await getNewAccessToken();
+    console.log(result, "result");
+
+    if (result.success) {
+      const newAccessToken = result.data.accessToken;
+
+      cookieStore.set("accessToken", newAccessToken, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 24,
+        sameSite: "lax",
       });
       accessToken = newAccessToken;
     }

@@ -46,11 +46,6 @@ const navLinks = [
 ];
 
 // User dropdown options, also kept in an array
-const userMenuItems = [
-  { label: "Profile", href: "/profile", icon: User },
-
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-];
 
 export function Navbar() {
   const pathname = usePathname();
@@ -59,7 +54,30 @@ export function Navbar() {
   const user = useContext(userContext);
   console.log(user);
 
+  const dashboardHref =
+    user?.data?.role === "CUSTOMER"
+      ? "/dashboard/customer"
+      : user?.data?.role === "TECHNICIAN"
+        ? "/dashboard/technician"
+        : "/dashboard/admin";
+
+  const userMenuItems = [
+    { label: "Profile", href: "/profile", icon: User },
+    { label: "Dashboard", href: dashboardHref, icon: LayoutDashboard },
+  ];
+
   const handleLogout = async (action: string) => {
+    if (action === "dashboard") {
+      if (user?.data?.role === "CUSTOMER") {
+        router.push("/dashboard/customer");
+      } else if (user?.data?.role === "TECHNICIAN") {
+        router.push("/dashboard/technician");
+      } else if (user?.data?.role === "ADMIN") {
+        router.push("/dashboard/admin");
+      }
+      return;
+    }
+
     if (action === "logout") {
       await logout();
       toast.success("Logout successfully");
