@@ -14,7 +14,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
         <SidebarProvider>
           <DashboardSidebar />
           <main className="flex-1 min-w-0">
-            <header className="flex h-14 items-center border-b px-4">
+            <header className="sticky top-0 z-50 flex h-14 items-center border-b bg-background px-4">
               <SidebarTrigger />
             </header>
             <div className="p-4 container mx-auto">{children}</div>

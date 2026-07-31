@@ -4,7 +4,7 @@ import { FileText, LayoutDashboard } from "lucide-react";
 export const CUSTOMER_SIDEBAR_ITEMS: ISidebarItem[] = [
   {
     label: "Dashboard",
-    href: "/dashboard",
+    href: "/dashboard/customer",
     icon: LayoutDashboard,
   },
   {

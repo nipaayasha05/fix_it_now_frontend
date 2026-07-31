@@ -35,6 +35,7 @@ import { userContext } from "@/app/context/userContext";
 import { logout } from "@/app/server/auth/logout";
 
 import { toast } from "sonner";
+import Logo from "./logo";
 
 // Nav links kept in an array to stay organized
 const navLinks = [
@@ -89,32 +90,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full  border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="mx-auto flex h-20 container items-center justify-between px-4 ">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-1 shrink-0">
-          <div className="">
-            <Image
-              src="/fixItNow1.png"
-              alt="Light Logo"
-              width={60}
-              height={55}
-              className="block dark:hidden h-16 w-auto"
-            />
-
-            <Image
-              src="/fixDarkOrange2.png"
-              alt="Dark Logo"
-              width={55}
-              height={55}
-              className="hidden dark:block h-16 w-auto"
-            />
-          </div>
-
-          <h1 className="text-2xl font-extrabold tracking-tight">
-            <span className="text-slate-900 dark:text-white">Fix</span>
-            <span className="text-blue-600 dark:text-blue-400">It</span>
-            <span className="text-orange-500 dark:text-orange-400  ">Now</span>
-          </h1>
-        </Link>
-
+        <Logo />
         {/* Nav links */}
         <ul className="hidden items-center  gap- md:flex">
           {navLinks.map((link) => {
@@ -125,7 +101,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-2 rounded-md px-3 py-2 text font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
+                    "flex items-center gap-2 rounded-md px-2 py-2 text font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
                     isActive
                       ? "bg-accent text-accent-foreground"
                       : "text-muted-foreground",
