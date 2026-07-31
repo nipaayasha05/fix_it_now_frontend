@@ -1,5 +1,6 @@
 import React from "react";
 import { getTechnicianById } from "../../_actions/technicians/techniciansActions";
+import TechnicianDetailsPage from "../../_components/technicians/TechnicianDetails";
 
 type Props = {
   params: Promise<{
@@ -12,7 +13,11 @@ const TechnicianById = async ({ params }: Props) => {
   const technicianResponse = await getTechnicianById(id);
   console.log(technicianResponse);
 
-  return <div>TechnicianById</div>;
+  return (
+    <div>
+      <TechnicianDetailsPage params={technicianResponse.data} />
+    </div>
+  );
 };
 
 export default TechnicianById;

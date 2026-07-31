@@ -128,18 +128,18 @@ const TechnicianCard = ({ technician }: TechnicianCardProps) => {
         </div>
       </CardContent>
 
-      <CardFooter className="flex-col">
+      <CardFooter className="flex-col ">
         <Separator className="mb-5" />
 
-        <Button className="w-full rounded-xl bg-cta font-semibold text-cta-foreground transition hover:bg-cta/90">
-          <Link
-            href={`/technicians/${technician.id}`}
-            className="group/button flex items-center justify-center gap-2"
-          >
-            Booking Now
+        <Link
+          href={`/technicians/${technician.id}`}
+          className="group/button w-full  flex items-center justify-center gap-2"
+        >
+          <Button className="w-full rounded-xl  font-semibold text-cta-foreground transition hover:bg-primary/90">
+            View Profile
             <ArrowRight className="size-4 transition-transform group-hover/button:translate-x-1" />
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );

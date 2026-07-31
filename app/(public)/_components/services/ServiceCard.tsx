@@ -167,11 +167,11 @@ export default function ServiceCard({ service }: ServiceCardProps) {
               className="
               w-full
               rounded-xl
-              bg-cta
+            
               text-cta-foreground
               transition-all
               duration-300
-              hover:bg-cta/90
+              hover:bg-primary/90
             "
             >
               View Details

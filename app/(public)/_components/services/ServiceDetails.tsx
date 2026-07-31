@@ -231,10 +231,10 @@ export default function ServiceDetails({ service }: Props) {
               </div>
             </div>
 
-            <Button className="group mt-8 h-12 w-full rounded-xl text-base transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+            <Button className="group mt-8 h-12 w-full rounded-xl bg-cta text-white transition-all duration-300 hover:scale-[1.02] hover:bg-cta/90 hover:shadow-xl">
               <Link
                 href={`/booking/${service.id}`}
-                className="flex items-center justify-center text-cta-foreground transition-colors duration-300"
+                className="flex w-full items-center justify-center"
               >
                 Book This Service
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

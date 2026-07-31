@@ -52,6 +52,9 @@ export type TTechnician = {
   updatedAt: string;
 
   technician: TUser;
+  services: TService[];
+  bookings: TBooking[];
+  availabilities: TAvailability[];
 };
 
 export type TCategory = {
@@ -89,4 +92,49 @@ export type TServiceResponse = {
   statusCode: number;
   message: string;
   data: TService;
+};
+
+export type TAvailability = {
+  id: string;
+  technicianId: string;
+  day: string;
+  startTime: string;
+  endTime: string;
+  isAvailable: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TReview = {
+  id: string;
+
+  customerId: string;
+  technicianId: string;
+  bookingId: string;
+
+  rating: number;
+  comment?: string | null;
+
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type TBooking = {
+  id: string;
+
+  customerId: string;
+
+  technicianId: string;
+
+  serviceId: string;
+
+  availabilityId: string;
+
+  note?: string | null;
+
+  totalPrice: number;
+  status: string;
+
+  createdAt: Date;
+  updatedAt: Date;
 };
