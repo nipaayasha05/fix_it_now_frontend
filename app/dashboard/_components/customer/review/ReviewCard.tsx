@@ -17,12 +17,15 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { TBooking } from "@/lib/type";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useState } from "react";
+import ReviewModal from "./ReviewModal";
 
 type ReviewCardProps = {
   review: TBooking;
 };
 
 export default function ReviewCard({ review }: ReviewCardProps) {
+  const [open, setOpen] = useState(false);
   const userReview = review.reviews?.[0];
   return (
     <Card className="group overflow-hidden border-0 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
@@ -219,17 +222,10 @@ export default function ReviewCard({ review }: ReviewCardProps) {
             </div>
           )}
 
-          <Button>
-            <Link
-              href={
-                userReview
-                  ? `/dashboard/customer/reviews/${review.id}`
-                  : `/dashboard/customer/review/${review.id}`
-              }
-            >
-              {userReview ? "View Review" : "Write Review"}
-            </Link>
+          <Button onClick={() => setOpen(true)}>
+            {userReview ? "View Review" : "Write Review"}
           </Button>
+          <ReviewModal open={open} onOpenChange={setOpen} review={review} />
         </div>
       </CardContent>
     </Card>

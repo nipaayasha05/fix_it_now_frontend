@@ -2,7 +2,11 @@
 import { isAccessTokenExists } from "@/app/server/auth/refreshToken";
 // import { revalidateTag } from "next/cache";
 
-export const createReview = async (payload: { bookingId: string }) => {
+export const createReview = async (payload: {
+  bookingId: string;
+  rating: number;
+  comment?: string;
+}) => {
   const accessToken = await isAccessTokenExists();
 
   if (!accessToken) {
@@ -12,7 +16,7 @@ export const createReview = async (payload: { bookingId: string }) => {
     };
   }
 
-  const res = await fetch(`${process.env.BACKEND_API_URL}/api/reviews/create`, {
+  const res = await fetch(`${process.env.BACKEND_API_URL}/api/reviews`, {
     method: "POST",
     headers: {
       Cookie: `accessToken=${accessToken}`,
