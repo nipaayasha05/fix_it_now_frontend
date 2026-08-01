@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { createBookings } from "../../_actions/bookings/bookingActions";
+import { createBookings } from "../../_actions/bookings/createBooking";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 

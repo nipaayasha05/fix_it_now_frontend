@@ -135,10 +135,23 @@ export type TBooking = {
   note?: string | null;
 
   totalPrice: number;
-  status: string;
+  status:
+    | "PENDING"
+    | "ACCEPTED"
+    | "DECLINED"
+    | "IN_PROGRESS"
+    | "COMPLETED"
+    | "CANCELLED";
 
   createdAt: Date;
   updatedAt: Date;
+
+  customer: TUser;
+  technician: TTechnician;
+  service: TService;
+  availability: TAvailability;
+  reviews?: TReview[];
+  payment?: TPayment;
 };
 
 export type ISidebarItem = {
@@ -147,4 +160,17 @@ export type ISidebarItem = {
   icon: ForwardRefExoticComponent<
     Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
   >;
+};
+
+export type TPayment = {
+  id: string;
+  bookingId: string;
+  customerId: string;
+  amount: number;
+  stripeCustomerId: string | null;
+  transactionId: string | null;
+  paidAt: Date | null;
+  status: "PENDING" | "SUCCESS" | "FAILED";
+  createdAt: Date;
+  updatedAt: Date;
 };

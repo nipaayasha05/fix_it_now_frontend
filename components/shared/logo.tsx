@@ -11,7 +11,7 @@ export const Logo = () => {
           alt="Light Logo"
           width={60}
           height={55}
-          className="block dark:hidden h-10 w-auto"
+          className="block dark:hidden h-16 w-16 object-contain"
         />
 
         <Image
@@ -19,7 +19,7 @@ export const Logo = () => {
           alt="Dark Logo"
           width={60}
           height={55}
-          className="hidden dark:block h-16 w-auto"
+          className="hidden dark:block h-16 w-16 object-contain"
         />
       </div>
 

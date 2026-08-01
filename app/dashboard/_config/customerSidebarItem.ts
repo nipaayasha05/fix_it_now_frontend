@@ -1,5 +1,5 @@
 import { ISidebarItem } from "@/lib/type";
-import { FileText, LayoutDashboard } from "lucide-react";
+import { FileText, LayoutDashboard, MessageSquareText } from "lucide-react";
 
 export const CUSTOMER_SIDEBAR_ITEMS: ISidebarItem[] = [
   {
@@ -8,8 +8,13 @@ export const CUSTOMER_SIDEBAR_ITEMS: ISidebarItem[] = [
     icon: LayoutDashboard,
   },
   {
-    label: "My Posts",
-    href: "/dashboard/my-posts",
+    label: "My Bookings",
+    href: "/dashboard/customer/bookings",
     icon: FileText,
+  },
+  {
+    label: "My Reviews",
+    href: "/dashboard/customer/reviews/eligible",
+    icon: MessageSquareText,
   },
 ];

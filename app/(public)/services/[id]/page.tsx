@@ -1,6 +1,6 @@
 import React from "react";
 import ServiceDetails from "../../_components/services/ServiceDetails";
-import { getServiceById } from "../../_actions/services/servicesActions";
+import { getServiceById } from "../../_actions/services/getAllService";
 import { TService } from "@/lib/type";
 
 type Props = {

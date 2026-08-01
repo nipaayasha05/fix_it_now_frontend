@@ -1,5 +1,5 @@
 import React from "react";
-import { getAllServices } from "../../_actions/services/servicesActions";
+import { getAllServices } from "../../_actions/services/getAllService";
 import { TService, TServicesResponse } from "@/lib/type";
 import ServiceCard from "./ServiceCard";
 

@@ -1,11 +1,6 @@
 import { CalendarDays, CircleCheckBig, Clock3, CreditCard } from "lucide-react";
 
 import {
-  getMyBookings,
-  getMyPayments,
-} from "@/app/dashboard/_actions/customer/customerActions";
-
-import {
   Card,
   CardContent,
   CardDescription,
@@ -27,6 +22,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BookingStatusBadge } from "./BookingStatusBadge";
 import { PaymentStatusBadge } from "./PaymentStatusBadge";
+import { getMyPayments } from "@/app/dashboard/_actions/customer/getPayments";
+import { getMyBookings } from "@/app/dashboard/_actions/customer/getBooking";
 
 interface Booking {
   id: string;
