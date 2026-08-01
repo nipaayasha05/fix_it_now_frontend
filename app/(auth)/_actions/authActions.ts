@@ -59,6 +59,9 @@ export const loginAction = async (
 
     const decodedToken = jwt.decode(result.data.accessToken) as JwtPayload;
 
+    if (decodedToken.role === "TECHNICIAN") {
+      redirect("/dashboard/technician/profile");
+    }
     if (
       redirectTo &&
       typeof redirectTo === "string" &&

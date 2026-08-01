@@ -237,9 +237,11 @@ export default function RegisterForm() {
               <div className="h-px flex-1 bg-border" />
             </div>
 
-            <Button variant="outline" className="w-full cursor-pointer">
-              <Link href="/auth/login">Already have an account?</Link>
-            </Button>
+            <Link href="/auth/login">
+              <Button variant="outline" className="w-full cursor-pointer">
+                Already have an account?
+              </Button>
+            </Link>
             {serverError && (
               <p className="text-center text-sm text-red-500">{serverError}</p>
             )}

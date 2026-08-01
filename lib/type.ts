@@ -31,6 +31,7 @@ export type TUser = {
   profileImage?: string;
   createdAt: Date;
   updatedAt: Date;
+  technician?: TTechnician;
 };
 
 export type TUserResponse = {

@@ -33,7 +33,13 @@ export default function DashboardSidebar() {
   if (user?.data?.role === "CUSTOMER") {
     sidebarItems = sidebarMenuItems.CUSTOMER;
   } else if (user?.data?.role === "TECHNICIAN") {
-    sidebarItems = sidebarMenuItems.TECHNICIAN;
+    if (user?.data?.technician) {
+      sidebarItems = sidebarMenuItems.TECHNICIAN;
+    } else {
+      sidebarItems = sidebarMenuItems.TECHNICIAN.filter(
+        (item) => item.href === "/dashboard/technician/profile",
+      );
+    }
   } else if (user?.data?.role === "ADMIN") {
     sidebarItems = sidebarMenuItems.ADMIN;
   }

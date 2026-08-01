@@ -126,9 +126,11 @@ export default function LoginForm() {
               <div className="h-px flex-1 bg-border" />
             </div>
 
-            <Button variant="outline" className="w-full">
-              <Link href="/auth/register">Create an Account</Link>
-            </Button>
+            <Link href="/auth/register">
+              <Button variant="outline" className="w-full cursor-pointer">
+                Create an Account
+              </Button>
+            </Link>
             {serverError && (
               <p className="text-center text-sm text-red-500">{serverError}</p>
             )}
