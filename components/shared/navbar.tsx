@@ -43,7 +43,7 @@ const navLinks = [
   { label: "Services", href: "/services", icon: BriefcaseBusiness },
   { label: "Technicians", href: "/technicians", icon: Users },
   { label: "About", href: "/about", icon: Info },
-  { label: "Contact", href: "/contact", icon: Phone },
+  // { label: "Contact", href: "/contact", icon: Phone },
 ];
 
 // User dropdown options, also kept in an array
