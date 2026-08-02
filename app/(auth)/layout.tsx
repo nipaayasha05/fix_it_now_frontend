@@ -2,6 +2,7 @@ import { Navbar } from "@/components/shared/navbar";
 import React from "react";
 import UserProvider from "../context/UserProvider";
 import { getMe } from "../server/auth/getMe";
+import Footer from "@/components/shared/footer";
 
 // import { getMe } from "../service/getMe";
 
@@ -12,6 +13,7 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
       <UserProvider user={user}>
         <Navbar />
         {children}
+        <Footer />
       </UserProvider>
     </div>
   );
