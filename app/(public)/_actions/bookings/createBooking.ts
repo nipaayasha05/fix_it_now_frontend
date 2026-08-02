@@ -9,11 +9,22 @@ export const createBookings = async (payload: {
 }) => {
   const accessToken = await isAccessTokenExists();
 
-  if (!accessToken) {
+  if (!accessToken || typeof accessToken !== "string") {
     return {
       success: false,
-      error: "Access token not found",
+      message: "Please login to book a technician.",
     };
+  }
+
+  // if (!accessToken) {
+  //   return {
+  //     success: false,
+  //     error: "Access token not found",
+  //   };
+  // }
+
+  if (!accessToken) {
+    throw new Error("Please login to book a technician.");
   }
 
   const res = await fetch(`${process.env.BACKEND_API_URL}/api/bookings`, {
@@ -27,13 +38,20 @@ export const createBookings = async (payload: {
     cache: "no-store",
   });
 
-  if (!res.ok) {
-    throw new Error(res.statusText || "Failed to create booking");
-  }
   const result = await res.json();
+
+  if (!res.ok) {
+    return {
+      success: false,
+      message: result.message || "Failed to create booking",
+    };
+  }
 
   // revalidateTag("technicians", "max");
   // revalidateTag(`technician-${payload.technicianId}`, "max");
 
-  return result;
+  return {
+    success: true,
+    data: result,
+  };
 };

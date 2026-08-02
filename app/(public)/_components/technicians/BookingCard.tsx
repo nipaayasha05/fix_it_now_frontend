@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import {
   BadgeCheck,
   CalendarDays,
@@ -26,12 +26,14 @@ import { Separator } from "@/components/ui/separator";
 import { createBookings } from "../../_actions/bookings/createBooking";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { userContext } from "@/app/context/userContext";
 
 type BookingCardProps = {
   technician: TTechnician;
 };
 
 export default function BookingCard({ technician }: BookingCardProps) {
+  const user = useContext(userContext);
   const [selectedServiceId, setSelectedServiceId] = useState(
     technician.services[0]?.id ?? "",
   );
@@ -63,21 +65,31 @@ export default function BookingCard({ technician }: BookingCardProps) {
     if (!selectedService) return;
 
     if (!selectedSlot) {
-      alert("Please select an available slot.");
+      toast.error("Please select an available slot.");
+      return;
+    }
+
+    if (!user) {
+      toast.error("Please login to book a technician.");
       return;
     }
 
     try {
-      await createBookings({
+      const result = await createBookings({
         technicianId: technician.id,
         serviceId: selectedServiceId,
         availabilityId: selectedAvailabilityId,
       });
 
+      if (!result.success) {
+        toast.error(result.message || "Booking failed");
+        return;
+      }
+
       toast.success("Booking successful!");
       router.refresh();
     } catch (error) {
-      console.error(error);
+      toast.error("Something went wrong!");
     }
   };
 
