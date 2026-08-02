@@ -44,7 +44,7 @@ const UserCard = ({ user }: UserCardProps) => {
   };
 
   return (
-    <TableRow>
+    <TableRow className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
       <TableCell>{user.name}</TableCell>
 
       <TableCell>{user.email}</TableCell>
@@ -56,7 +56,7 @@ const UserCard = ({ user }: UserCardProps) => {
       <TableCell>
         {isEditing ? (
           <select
-            className="rounded-md border px-2 py-1"
+            className="rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:focus:ring-blue-400"
             value={userStatus}
             onChange={(e) =>
               setUserStatus(e.target.value as typeof user.status)

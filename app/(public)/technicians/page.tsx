@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Suspense } from "react";
 import AllTechnicians from "../_components/technicians/AllTechnicians";
+import SkeletonPage from "../_components/skeleton/Skeleton";
 
 const TechnicianPage = () => {
   return (
@@ -8,7 +9,9 @@ const TechnicianPage = () => {
         All Technicians
       </h1>
       <div>
-        <AllTechnicians />
+        <Suspense fallback={<SkeletonPage />}>
+          <AllTechnicians />
+        </Suspense>
       </div>
     </div>
   );

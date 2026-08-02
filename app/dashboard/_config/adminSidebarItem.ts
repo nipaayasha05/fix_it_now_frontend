@@ -10,7 +10,7 @@ import {
 export const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
   {
     label: "Dashboard",
-    href: "/adminDashboard",
+    href: "/dashboard/admin",
     icon: LayoutDashboard,
   },
   {

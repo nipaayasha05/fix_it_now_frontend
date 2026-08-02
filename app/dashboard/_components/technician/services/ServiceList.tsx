@@ -9,13 +9,13 @@ export const ServiceList = async () => {
   return (
     <div>
       {services.data?.length === 0 ? (
-        <div className="flex min-h-[300px] items-center justify-center rounded-lg border bg-gray-50">
+        <div className="flex min-h-[300px] items-center justify-center rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-900">
           <div className="text-center">
-            <h2 className="text-xl font-semibold text-gray-700">
+            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-100">
               No Services Found
             </h2>
-            <p className="mt-2 text-sm text-gray-500">
-              You do not have any services yet.Please create one.
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+              You do not have any services yet. Please create one.
             </p>
           </div>
         </div>

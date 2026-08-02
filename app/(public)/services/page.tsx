@@ -1,5 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import AllServices from "../_components/services/AllServices";
+import { Skeleton } from "@/components/ui/skeleton";
+import SkeletonPage from "../_components/skeleton/Skeleton";
 
 const servicesPage = () => {
   return (
@@ -8,7 +10,9 @@ const servicesPage = () => {
         All Services
       </h1>
       <div>
-        <AllServices />
+        <Suspense fallback={<SkeletonPage />}>
+          <AllServices />
+        </Suspense>
       </div>
     </div>
   );

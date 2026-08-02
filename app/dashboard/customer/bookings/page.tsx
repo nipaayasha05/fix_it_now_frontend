@@ -1,10 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 import MyBooking from "../../_components/customer/MyBooking/MyBooking";
+import SkeletonPage from "@/app/(public)/_components/skeleton/Skeleton";
 
 const Booking = () => {
   return (
     <div>
-      <MyBooking />
+      <Suspense fallback={<SkeletonPage />}>
+        <MyBooking />
+      </Suspense>
     </div>
   );
 };
