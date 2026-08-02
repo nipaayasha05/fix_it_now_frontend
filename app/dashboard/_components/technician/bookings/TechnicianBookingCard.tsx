@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { editBooking } from "@/app/dashboard/_actions/technician/editBooking";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type MyBookingCardProps = {
   booking: TBooking;
@@ -43,6 +44,7 @@ const TechnicianBookingCard = ({ booking }: MyBookingCardProps) => {
     console.log("result", result);
 
     if (result.success) {
+      toast.success("Booking updated successfully");
       setIsEditing(false);
       router.refresh();
     }
