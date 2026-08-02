@@ -63,7 +63,7 @@ export type TTechnician = {
 export type TCategory = {
   id: string;
   name: string;
-  description: string | null;
+  description?: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -71,7 +71,7 @@ export type TCategory = {
 export type TService = {
   id: string;
   title: string;
-  description: string | null;
+  description?: string | null;
   price: number;
   duration: number | null;
   technicianId: string;
