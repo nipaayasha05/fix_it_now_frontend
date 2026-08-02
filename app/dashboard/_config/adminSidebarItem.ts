@@ -1,5 +1,11 @@
 import { ISidebarItem } from "@/lib/type";
-import { FileText, LayoutDashboard } from "lucide-react";
+import {
+  FileText,
+  FolderTree,
+  LayoutDashboard,
+  Tags,
+  Users,
+} from "lucide-react";
 
 export const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
   {
@@ -8,8 +14,13 @@ export const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
     icon: LayoutDashboard,
   },
   {
-    label: "My Posts",
-    href: "/dashboard/my-posts",
-    icon: FileText,
+    label: "Users",
+    href: "/dashboard/admin/users",
+    icon: Users,
+  },
+  {
+    label: "Categories",
+    href: "/dashboard/admin/categories",
+    icon: Tags,
   },
 ];

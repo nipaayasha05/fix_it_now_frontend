@@ -59,6 +59,7 @@ const CreateService = ({ categories }: CreateServiceProps) => {
       console.log(result);
 
       if (result.success) {
+        toast.success("Service created successfully");
         setOpen(false);
         router.refresh();
       }
