@@ -27,7 +27,6 @@ export const createTechnician = async (payload: CreateTechnicianPayload) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
-    cache: "no-store",
   });
 
   const result = await res.json();

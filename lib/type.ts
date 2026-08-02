@@ -106,6 +106,7 @@ export type TAvailability = {
   isAvailable: boolean;
   createdAt: string;
   updatedAt: string;
+  booking?: TBooking[];
 };
 
 export type TReview = {

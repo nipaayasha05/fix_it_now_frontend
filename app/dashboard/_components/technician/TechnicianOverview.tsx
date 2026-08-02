@@ -22,10 +22,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { BookingStatusBadge } from "../customer/customerHome/BookingStatusBadge";
+import { getDashboard } from "../../_actions/technician/getDashboard";
 
 const TechnicianOverview = async () => {
   const availability = await getTechnicianAvailability();
   const technician = await getMe();
+  const dashboard = await getDashboard();
 
   const profile = technician.data.technician;
 
@@ -47,6 +49,61 @@ const TechnicianOverview = async () => {
           <Badge className="w-fit">{profile.status}</Badge>
         </CardContent>
       </Card>
+
+      {/* Dashboard */}
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Upcoming Jobs</CardTitle>
+            <CardDescription>Scheduled jobs</CardDescription>
+          </CardHeader>
+
+          <CardContent>
+            <p className="text-3xl font-bold text-blue-600">
+              {dashboard.data?.upcomingJobs}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Pending Requests</CardTitle>
+            <CardDescription>Waiting for approval</CardDescription>
+          </CardHeader>
+
+          <CardContent>
+            <p className="text-3xl font-bold text-amber-600">
+              {dashboard.data?.pedingRequests}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Completed Jobs</CardTitle>
+            <CardDescription>Total completed</CardDescription>
+          </CardHeader>
+
+          <CardContent>
+            <p className="text-3xl font-bold text-green-600">
+              {dashboard.data?.completedRequests}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Total Earnings</CardTitle>
+            <CardDescription>Paid earnings</CardDescription>
+          </CardHeader>
+
+          <CardContent>
+            <p className="text-3xl font-bold text-emerald-600">
+              ৳{dashboard.data?.totalEarnings}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
