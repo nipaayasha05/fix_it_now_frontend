@@ -2,7 +2,7 @@ import { TTechnician } from "@/lib/type";
 import React from "react";
 import TechnicianCard from "./TechnicianCard";
 import { getAllTechnicians } from "../../_actions/technicians/techniciansActions";
-import SearchBar from "../services/SearchBar";
+import SearchBar from "../../../../components/shared/SearchBar";
 
 const AllTechnicians = async ({
   searchParams,

@@ -10,6 +10,13 @@ export const getAllServices = async ({
   if (query && query.searchTerm) {
     params.set("searchTerm", query.searchTerm as string);
   }
+  if (query) {
+    Object.entries(query).forEach(([key, value]) => {
+      if (typeof value === "string" && value.trim() !== "") {
+        params.set(key, value);
+      }
+    });
+  }
 
   console.log(query);
   console.log(params.toString());
