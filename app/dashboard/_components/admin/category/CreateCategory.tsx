@@ -48,7 +48,7 @@ const CreateCategory = ({ categories }: CreateCategoryProps) => {
 
       const result = await createCategory(payload as TCategory);
 
-      console.log(result);
+      // console.log(result);
 
       if (result.success) {
         setOpen(false);

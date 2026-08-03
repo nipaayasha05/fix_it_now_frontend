@@ -39,8 +39,8 @@ export const createAvailability = async (
 
   const result = await res.json();
 
-  console.log("Status:", res.status);
-  console.log("Response:", result);
+  // console.log("Status:", res.status);
+  // console.log("Response:", result);
 
   if (!res.ok) {
     throw new Error(result.message || "Failed to create availability");

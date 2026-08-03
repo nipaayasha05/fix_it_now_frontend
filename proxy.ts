@@ -32,10 +32,10 @@ export async function proxy(request: NextRequest) {
     : null;
 
   if (!decodedAccessToken?.success && decodedRefreshToken?.success) {
-    console.log("refreshToken is valid");
+    // console.log("refreshToken is valid");
 
     const result = await getNewAccessToken();
-    console.log(result, "result");
+    // console.log(result, "result");
 
     if (result.success) {
       const newAccessToken = result.data.accessToken;

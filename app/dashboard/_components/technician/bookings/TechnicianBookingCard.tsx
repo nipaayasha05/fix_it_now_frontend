@@ -41,7 +41,7 @@ const TechnicianBookingCard = ({ booking }: MyBookingCardProps) => {
 
     const result = await editBooking(booking.id, payload);
 
-    console.log("result", result);
+    // console.log("result", result);
 
     if (result.success) {
       toast.success("Booking updated successfully");

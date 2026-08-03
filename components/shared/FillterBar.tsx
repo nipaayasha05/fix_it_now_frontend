@@ -12,7 +12,7 @@ import { Input } from "../ui/input";
 import { TCategory } from "@/lib/type";
 
 export const FillterBar = ({ categories }: { categories: TCategory[] }) => {
-  console.log(categories);
+  // console.log(categories);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

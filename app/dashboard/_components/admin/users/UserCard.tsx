@@ -25,7 +25,7 @@ const UserCard = ({ user }: UserCardProps) => {
     try {
       const payload = { status: userStatus };
       const status = await editUsers(user.id, payload);
-      console.log(status);
+      // console.log(status);
 
       // await updateUserStatus(user.id,{status})
 

@@ -20,7 +20,7 @@ import { createPayment } from "@/app/dashboard/_actions/customer/createPayment";
 import { TBooking } from "@/lib/type";
 
 export const PaymentCard = ({ booking }: PaymentCardProps) => {
-  console.log(booking);
+  // console.log(booking);
   const handlePayment = async () => {
     const result = await createPayment({ bookingId: booking.id });
     window.location.href = result.data.paymentUrl;

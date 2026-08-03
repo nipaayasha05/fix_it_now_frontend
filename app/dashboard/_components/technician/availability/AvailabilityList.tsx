@@ -5,7 +5,7 @@ import { TAvailability } from "@/lib/type";
 
 const AvailabilityList = async () => {
   const slots = await getTechnicianAvailability();
-  console.log(slots);
+  // console.log(slots);
   return (
     <div>
       {slots.data?.length === 0 ? (

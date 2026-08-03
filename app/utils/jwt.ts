@@ -9,7 +9,7 @@ const verifiedToken = (token: string, secret: string) => {
       data: verifiedToken,
     };
   } catch (error: unknown) {
-    console.log("verifiedToken error", error);
+    // console.log("verifiedToken error", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",

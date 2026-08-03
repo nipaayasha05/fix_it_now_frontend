@@ -9,7 +9,7 @@ export const MyReview = async () => {
     (review: TBooking) => review.status === "COMPLETED",
   );
 
-  console.log(reviews);
+  // console.log(reviews);
   return (
     <>
       {acceptedReviews.length === 0 ? (

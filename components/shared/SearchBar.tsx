@@ -20,7 +20,7 @@ export const SearchBar = () => {
       clearTimeout(debouncedReference.current);
     }
     debouncedReference.current = setTimeout(() => {
-      console.log(value);
+      // console.log(value);
 
       const params = new URLSearchParams(searchParams.toString());
 

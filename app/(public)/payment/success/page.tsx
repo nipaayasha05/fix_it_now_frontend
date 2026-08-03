@@ -9,7 +9,7 @@ type Props = {
 export default async function SuccessPage({ searchParams }: Props) {
   const { session_id } = await searchParams;
 
-  console.log(session_id);
+  // console.log(session_id);
 
   return (
     <div>

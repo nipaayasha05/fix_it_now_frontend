@@ -56,7 +56,7 @@ const CreateService = ({ categories }: CreateServiceProps) => {
 
       const result = await postMyServices(payload as TService);
 
-      console.log(result);
+      // console.log(result);
 
       if (result.success) {
         toast.success("Service created successfully");

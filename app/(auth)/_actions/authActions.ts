@@ -21,7 +21,7 @@ export const loginAction = async (
 ) => {
   const email = data.email;
   const password = data.password;
-  console.log(email, password);
+  // console.log(email, password);
 
   const payload = {
     email,
@@ -40,7 +40,7 @@ export const loginAction = async (
   );
   const result = await res.json();
 
-  console.log(result);
+  // console.log(result);
 
   if (result.success) {
     const cookieStore = await cookies();
@@ -97,7 +97,7 @@ export const registerAction = async (
     // redirect("/auth/login");
   }
 
-  console.log(result);
+  // console.log(result);
   // console.log(result.data.user.profile);
   return result;
 };

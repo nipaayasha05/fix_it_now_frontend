@@ -53,7 +53,7 @@ export function Navbar() {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
   const user = useContext(userContext);
-  console.log(user);
+  // console.log(user);
 
   const dashboardHref =
     user?.data?.role === "CUSTOMER"

@@ -87,7 +87,7 @@ const CreateAvailability = () => {
       }
     }
 
-    console.log(payload);
+    // console.log(payload);
   };
 
   return (

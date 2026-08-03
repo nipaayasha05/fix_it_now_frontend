@@ -5,7 +5,7 @@ import ServiceCard from "./ServiceCard";
 
 export const ServiceList = async () => {
   const services = await getMyServices();
-  console.log(services);
+  // console.log(services);
   return (
     <div>
       {services.data?.length === 0 ? (

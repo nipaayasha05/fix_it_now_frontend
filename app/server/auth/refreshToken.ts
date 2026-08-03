@@ -54,7 +54,7 @@ export const isAccessTokenExist = async () => {
 
   if (!decodedAccessToken?.success && !decodedRefreshToken?.success) {
     const result = await getNewAccessToken();
-    console.log(result);
+    // console.log(result);
 
     if (result.success) {
       const newAccessToken = result.data.accessToken;
@@ -98,11 +98,11 @@ export const isAccessTokenExists = async () => {
     : null;
 
   if (!decodedAccessToken?.success && decodedRefreshToken?.success) {
-    console.log(decodedRefreshToken, "decodedRefreshToken");
+    // console.log(decodedRefreshToken, "decodedRefreshToken");
     // access token has expired but refresh token is valid
 
     const result = await getNewAccessToken();
-    console.log(result, "result");
+    // console.log(result, "result");
 
     if (result.success) {
       const newAccessToken = result.data.accessToken;

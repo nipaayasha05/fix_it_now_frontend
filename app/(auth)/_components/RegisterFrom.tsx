@@ -58,7 +58,7 @@ export default function RegisterForm() {
     }
 
     const result = await registerAction("/auth/login", data);
-    console.log(result);
+    // console.log(result);
     if (result.success) {
       reset();
       router.push("/auth/login");

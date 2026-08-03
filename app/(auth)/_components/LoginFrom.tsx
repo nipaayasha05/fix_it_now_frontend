@@ -35,7 +35,7 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginFormValues) => {
     const result = await loginAction("/", data);
-    console.log(result);
+    // console.log(result);
 
     if (!result.success) {
       setServerError(result.message);

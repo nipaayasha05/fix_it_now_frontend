@@ -5,7 +5,7 @@ import TechnicianBookingCard from "./TechnicianBookingCard";
 
 const Bookings = async () => {
   const bookings = await getBookings();
-  console.log(bookings.data);
+  // console.log(bookings.data);
 
   return (
     <>
