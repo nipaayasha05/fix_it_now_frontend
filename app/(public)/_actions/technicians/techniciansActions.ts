@@ -2,13 +2,26 @@
 
 import { revalidateTag } from "next/cache";
 
-export const getAllTechnicians = async () => {
-  const res = await fetch(`${process.env.BACKEND_API_URL}/api/technicians`, {
-    next: {
-      revalidate: 60,
-      tags: ["technicians"],
+export const getAllTechnicians = async ({
+  query,
+}: {
+  query?: { [key: string]: string | string[] | undefined };
+}) => {
+  const params = new URLSearchParams();
+
+  if (query && query.searchTerm) {
+    params.set("searchTerm", query.searchTerm as string);
+  }
+
+  const res = await fetch(
+    `${process.env.BACKEND_API_URL}/api/technicians?${params.toString()}`,
+    {
+      next: {
+        revalidate: 60,
+        tags: ["technicians"],
+      },
     },
-  });
+  );
   const result = await res.json();
   return result;
 };

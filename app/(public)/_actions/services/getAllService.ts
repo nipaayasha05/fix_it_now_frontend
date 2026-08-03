@@ -1,12 +1,28 @@
 "use server";
 
-export const getAllServices = async () => {
-  const res = await fetch(`${process.env.BACKEND_API_URL}/api/services`, {
-    next: {
-      revalidate: 60,
-      tags: ["services"],
+export const getAllServices = async ({
+  query,
+}: {
+  query?: { [key: string]: string | string[] | undefined };
+}) => {
+  const params = new URLSearchParams();
+
+  if (query && query.searchTerm) {
+    params.set("searchTerm", query.searchTerm as string);
+  }
+
+  console.log(query);
+  console.log(params.toString());
+
+  const res = await fetch(
+    `${process.env.BACKEND_API_URL}/api/services?${params.toString()}`,
+    {
+      next: {
+        revalidate: 60,
+        tags: ["services"],
+      },
     },
-  });
+  );
   const result = await res.json();
   return result;
 };
