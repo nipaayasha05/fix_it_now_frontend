@@ -195,13 +195,3 @@ For detailed endpoint mapping, see **API_INTEGRATION.md**.
 - Categories
 
 ---
-
-## Deployment
-
-The frontend is deployed on **Vercel** and communicates with the deployed backend API.
-
----
-
-## License
-
-This project was developed for educational purposes as part of the Programming Hero Level-2 Web Development course.
