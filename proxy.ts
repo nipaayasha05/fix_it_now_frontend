@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 
 const AUTH_ROUTES = ["/auth/login", "/auth/register"];
 
-const PUBLIC_ROUTES = ["/", "/services", "/technician", "/about"];
+const PUBLIC_ROUTES = ["/", "/services", "/technicians", "/about"];
 
 export async function proxy(request: NextRequest) {
   const response = NextResponse.next();
@@ -122,6 +122,6 @@ export const config = {
     // "/dashboard/:path*",
     // "/adminDashboard/:path*",
     // "/authorDashboard/:path*",
-    "/((?!api|_next/static|favicon.ico|.*\\.png$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)",
   ],
 };
