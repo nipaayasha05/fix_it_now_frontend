@@ -19,7 +19,7 @@ const HeroSection = () => {
             dark:bg-blue-900/40 dark:text-blue-300
             "
           >
-            🔧 Trusted Home Service Platform
+            Trusted Home Service Platform
           </span>
 
           <h1
