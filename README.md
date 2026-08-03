@@ -4,7 +4,7 @@
 
 ## Live Application
 
-https://your-frontend-url.vercel.app/
+https://fix-it-now-frontend-amber.vercel.app/
 
 ## Backend API
 
