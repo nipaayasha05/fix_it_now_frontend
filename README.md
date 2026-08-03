@@ -1,36 +1,207 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FixItNow Frontend
 
-## Getting Started
+**A Home Service Marketplace Frontend Application**
 
-First, run the development server:
+## Live Application
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+https://your-frontend-url.vercel.app/
+
+## Backend API
+
+https://fix-it-now-backend-ivory.vercel.app/
+
+## Admin Credentials
+
+**Email:** admin@gmail.com
+
+**Password:** 123456
+
+## Project Overview
+
+FixItNow is a modern home service marketplace built with Next.js. It allows customers to find and book home services, technicians to manage their profiles, services, and bookings, and administrators to manage users, categories, and the overall platform.
+
+The application integrates with the FixItNow Backend API for authentication, service management, booking, reviews, and secure Stripe payment processing.
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- Shadcn UI
+- next-themes (Dark/Light Mode)
+- React Hook Form
+- Zod
+- JWT
+
+### State Management & Data Fetching
+
+- Server Components
+- Server Actions
+- Fetch API
+
+### Authentication
+
+- JWT Authentication
+- HTTP-only Cookies
+- Next.js Middleware
+
+### Payment Integration
+
+- Stripe Checkout
+
+---
+
+## Features
+
+### Authentication
+
+- User registration
+- User login
+- Secure JWT authentication
+- Protected routes with middleware
+- Role-based navigation and dashboards
+
+### Customer
+
+- Browse service categories
+- Search and filter services
+- View technician profiles
+- Book services
+- Manage bookings
+- Make secure payments with Stripe
+- View payment history
+- Submit service reviews
+
+### Technician
+
+- Create technician profile
+- Manage services
+- Manage availability
+- View assigned bookings
+- Update booking status
+- View dashboard overview
+
+### Admin
+
+- Dashboard overview
+- Update user status
+- Manage service categories
+
+### Payment
+
+- Stripe Checkout integration
+- Payment success page
+- Payment cancel page
+- Payment history
+
+### UI Features
+
+- Responsive layout
+- Skeleton loading states
+- User-friendly error handling
+- Toast notifications
+- Dynamic role-based dashboards
+- Optimized images using Next.js Image component
+
+---
+
+## Environment Variables
+
+Create a `.env.local` file and add the following variables:
+
+```env
+NEXT_PUBLIC_BACKEND_API_URL=your_backend_api_url
+BACKEND_API_URL=your_backend_api_url
+JWT_REFRESH_SECRET=your_jwt_refresh_secret
+JWT_ACCESS_SECRET=your_jwt_access_secret
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+git clone https://github.com/nipaayasha05/fix_it_now_frontend
 
-## Learn More
+cd fix_it_now_frontend
 
-To learn more about Next.js, take a look at the following resources:
+npm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## User Roles
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- CUSTOMER
+- TECHNICIAN
+- ADMIN
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## API Integration
+
+The frontend communicates with the FixItNow Backend API to perform:
+
+- Authentication
+- User Profile
+- Service Management
+- Category Management
+- Technician Management
+- Booking Management
+- Review Management
+- Payment Processing
+
+For detailed endpoint mapping, see **API_INTEGRATION.md**.
+
+---
+
+## Pages
+
+### Public Pages
+
+- Home
+- Services
+- Service Details
+- Technicians
+- Technician Details
+- Login
+- Register
+
+### Customer Dashboard
+
+- Dashboard
+- My Bookings
+- My Reviews
+
+### Technician Dashboard
+
+- Dashboard
+- Completed Profile
+- Services
+- Availability
+- Bookings
+
+### Admin Dashboard
+
+- Dashboard Overview
+- Users
+- Categories
+
+---
+
+## Deployment
+
+The frontend is deployed on **Vercel** and communicates with the deployed backend API.
+
+---
+
+## License
+
+This project was developed for educational purposes as part of the Programming Hero Level-2 Web Development course.
