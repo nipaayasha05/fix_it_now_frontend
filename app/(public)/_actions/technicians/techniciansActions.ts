@@ -5,8 +5,12 @@ import { revalidateTag } from "next/cache";
 
 export const getAllTechnicians = async ({
   query,
+  page = 1,
+  limit = 6,
 }: {
   query?: { [key: string]: string | string[] | undefined };
+  page?: number;
+  limit?: number;
 }) => {
   const params = new URLSearchParams();
 
@@ -21,6 +25,9 @@ export const getAllTechnicians = async ({
       }
     });
   }
+
+  params.set("page", page.toString());
+  params.set("limit", limit.toString());
 
   const res = await fetch(
     `${process.env.BACKEND_API_URL}/api/technicians?${params.toString()}`,
@@ -52,9 +59,13 @@ export const getTechnicianById = async (id: string) => {
 };
 
 export const getBestRevenueTechnicians = async () => {
-  const result = await getAllTechnicians({});
+  const result = await getAllTechnicians({
+    query: {},
+    page: 1,
+    limit: 6,
+  });
 
-  const technicians = result.data || [];
+  const technicians = result.data?.data || [];
 
   return technicians
     .sort((a: any, b: any) => b.revenue - a.revenue)

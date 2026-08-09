@@ -3,8 +3,12 @@
 
 export const getAllServices = async ({
   query,
+  page = 1,
+  limit = 6,
 }: {
   query?: { [key: string]: string | string[] | undefined };
+  page?: number;
+  limit?: number;
 }) => {
   const params = new URLSearchParams();
 
@@ -18,6 +22,9 @@ export const getAllServices = async ({
       }
     });
   }
+
+  params.set("page", page.toString());
+  params.set("limit", limit.toString());
 
   // console.log(query);
   // console.log(params.toString());
@@ -47,9 +54,13 @@ export const getServiceById = async (id: string) => {
 };
 
 export const getBestRevenueServices = async () => {
-  const result = await getAllServices({});
+  const result = await getAllServices({
+    query: {},
+    page: 1,
+    limit: 6,
+  });
 
-  const services = result.data || [];
+  const services = result.data?.data || [];
 
   return services.sort((a: any, b: any) => b.revenue - a.revenue).slice(0, 6);
 };

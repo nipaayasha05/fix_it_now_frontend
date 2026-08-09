@@ -7,6 +7,7 @@ import { FillterBar } from "@/components/shared/FillterBar";
 import { getCategory } from "@/app/dashboard/_actions/technician/getCategory";
 import { getAllTechnicians } from "../../_actions/technicians/techniciansActions";
 import SortBar from "@/components/shared/SortBar";
+import Pagination from "@/components/shared/Pagination";
 
 export const AllServices = async ({
   searchParams,
@@ -14,13 +15,24 @@ export const AllServices = async ({
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const query = await searchParams;
-  const result = await getAllServices({ query });
-  const technicians = await getAllTechnicians({});
+
+  const page = Number(query?.page) || 1;
+  const limit = 6;
+
+  const result = await getAllServices({ query, page, limit });
+  const technicians = await getAllTechnicians({ page: 1, limit: 1000 });
   const locations: string[] = Array.from(
     new Set(
-      technicians.data.map((technician: TTechnician) => technician.location),
+      technicians.data?.data.map(
+        (technician: TTechnician) => technician.location,
+      ),
     ),
   );
+  // console.log("result:", result);
+  // console.log("result.data:", result.data);
+  // console.log("isArray:", Array.isArray(result.data));
+  // console.log("type:", typeof result.data);
+  // console.log("map:", result.data?.map);
 
   const categories = await getCategory();
 
@@ -47,7 +59,7 @@ export const AllServices = async ({
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-4 mt-2">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-9">
         <div>
           <SearchBar />
         </div>
@@ -62,11 +74,17 @@ export const AllServices = async ({
           />
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {result.data.map((post: TService) => (
+      <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 ">
+        {result.data?.data.map((post: TService) => (
           <ServiceCard key={post.id} service={post} />
         ))}
       </div>
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={result.data?.meta?.page || page}
+        totalPages={result.data?.meta?.totalPages || 1}
+      />
     </div>
   );
 };

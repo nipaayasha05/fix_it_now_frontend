@@ -5,6 +5,7 @@ import { getAllTechnicians } from "../../_actions/technicians/techniciansActions
 import SearchBar from "../../../../components/shared/SearchBar";
 import { FillterBar } from "@/components/shared/FillterBar";
 import SortBar from "@/components/shared/SortBar";
+import Pagination from "@/components/shared/Pagination";
 
 const AllTechnicians = async ({
   searchParams,
@@ -12,18 +13,24 @@ const AllTechnicians = async ({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const query = await searchParams;
-  const result = await getAllTechnicians({ query });
-  const allTechnicians = await getAllTechnicians({});
+
+  const page = Number(query?.page) || 1;
+  const limit = 6;
+
+  const result = await getAllTechnicians({ query, page, limit });
+  const allTechnicians = await getAllTechnicians({ page: 1, limit: 100 });
 
   const locations: string[] = Array.from(
     new Set(
-      allTechnicians.data.map((technician: TTechnician) => technician.location),
+      allTechnicians.data?.data.map(
+        (technician: TTechnician) => technician.location,
+      ),
     ),
   );
 
   const averageRating: number[] = Array.from(
     new Set(
-      allTechnicians.data.map(
+      allTechnicians.data?.data.map(
         (technician: TTechnician) => technician.averageRating,
       ),
     ),
@@ -69,10 +76,15 @@ const AllTechnicians = async ({
         </div>
       </div>
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {result.data.map((post: TTechnician) => (
+        {result.data?.data.map((post: TTechnician) => (
           <TechnicianCard key={post.id} technician={post} />
         ))}
       </div>
+      {/* Pagination */}
+      <Pagination
+        currentPage={result.data?.meta?.page || page}
+        totalPages={result.data?.meta?.totalPages || 1}
+      />
     </div>
   );
 };
