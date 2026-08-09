@@ -14,6 +14,14 @@ export const getAllTechnicians = async ({
     params.set("searchTerm", query.searchTerm as string);
   }
 
+  if (query) {
+    Object.entries(query).forEach(([key, value]) => {
+      if (typeof value === "string" && value.trim() !== "") {
+        params.set(key, value);
+      }
+    });
+  }
+
   const res = await fetch(
     `${process.env.BACKEND_API_URL}/api/technicians?${params.toString()}`,
     {
