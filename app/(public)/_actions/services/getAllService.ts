@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 export const getAllServices = async ({
@@ -43,4 +44,12 @@ export const getServiceById = async (id: string) => {
   });
   const result = await res.json();
   return result;
+};
+
+export const getBestRevenueServices = async () => {
+  const result = await getAllServices({});
+
+  const services = result.data || [];
+
+  return services.sort((a: any, b: any) => b.revenue - a.revenue).slice(0, 6);
 };

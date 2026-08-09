@@ -25,13 +25,40 @@ export default function LoginForm() {
 
   const [serverError, setServerError] = useState("");
 
+  const DEMO_CREDENTIALS = {
+    ADMIN: {
+      email: "admin@gmail.com",
+      password: "123456",
+    },
+    TECHNICIAN: {
+      email: "technician@gmail.com",
+      password: "123456",
+    },
+  };
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
+
+  const handleDemoLogin = async (role: "ADMIN" | "TECHNICIAN") => {
+    const credentials = DEMO_CREDENTIALS[role];
+
+    setServerError("");
+
+    setValue("email", credentials.email);
+    setValue("password", credentials.password);
+
+    const result = await loginAction("/", credentials);
+
+    if (!result.success) {
+      setServerError(result.message);
+    }
+  };
 
   const onSubmit = async (data: LoginFormValues) => {
     const result = await loginAction("/", data);
@@ -117,6 +144,29 @@ export default function LoginForm() {
             <Button type="submit" disabled={isSubmitting} className="w-full">
               {isSubmitting ? "Logging in..." : "Login"}
             </Button>
+
+            {/* Demo Login */}
+            <div className="grid grid-cols-2 gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                disabled={isSubmitting}
+                onClick={() => handleDemoLogin("ADMIN")}
+                className="w-full"
+              >
+                {isSubmitting ? "Demo Admin..." : "Demo Admin"}
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                disabled={isSubmitting}
+                onClick={() => handleDemoLogin("TECHNICIAN")}
+                className="w-full"
+              >
+                {isSubmitting ? "Demo Technician..." : "Demo Technician"}
+              </Button>
+            </div>
 
             <div className="flex items-center gap-3">
               <div className="h-px flex-1 bg-border" />

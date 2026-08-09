@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { revalidateTag } from "next/cache";
@@ -40,4 +41,14 @@ export const getTechnicianById = async (id: string) => {
   const result = await res.json();
 
   return result;
+};
+
+export const getBestRevenueTechnicians = async () => {
+  const result = await getAllTechnicians({});
+
+  const technicians = result.data || [];
+
+  return technicians
+    .sort((a: any, b: any) => b.revenue - a.revenue)
+    .slice(0, 6);
 };

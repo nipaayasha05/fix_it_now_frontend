@@ -28,30 +28,28 @@ const TopServices = ({ services }: { services: Service[] }) => {
     <section className="py-20 bg-slate-50 dark:bg-slate-950 transition-colors">
       <div className="container mx-auto px-4">
         {/* Heading */}
-        <div className="text-center mb-12">
-          <p className="text-blue-600 dark:text-blue-400 font-semibold">
-            Our Services
-          </p>
-
+        <div className="mx-auto max-w-2xl text-center">
           <h2
             className="
-            text-3xl md:text-4xl 
-            font-bold mt-2
-            text-gray-900
-            dark:text-white
-            "
+      text-3xl 
+      font-bold 
+      text-gray-900 
+      dark:text-white
+      md:text-4xl
+    "
           >
-            Top Services For Your Home
+            <span className="text-blue-600 dark:text-blue-400">
+              Top Services
+            </span>{" "}
+            For Your Home
           </h2>
 
           <p
             className="
-            text-gray-500 
-            dark:text-gray-400
-            mt-3 
-            max-w-xl 
-            mx-auto
-            "
+      mt-4 
+      text-gray-600
+      dark:text-gray-400
+    "
           >
             Get trusted professionals for your home repair and maintenance
             needs.

@@ -1,17 +1,16 @@
 import React from "react";
-import { getAllServices } from "../../_actions/services/getAllService";
+import {
+  getAllServices,
+  getBestRevenueServices,
+} from "../../_actions/services/getAllService";
 import TopServices from "./TopService";
 
-const HomeService = async ({
-  searchParams,
-}: {
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-}) => {
-  const query = await searchParams;
-  const services = await getAllServices({ query });
+const HomeService = async () => {
+  // const query = await searchParams;
+  const services = await getBestRevenueServices();
   return (
     <div>
-      <TopServices services={services.data} />
+      <TopServices services={services} />
     </div>
   );
 };
