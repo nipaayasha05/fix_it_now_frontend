@@ -1,5 +1,6 @@
 import { ISidebarItem } from "@/lib/type";
 import {
+  CalendarCheck,
   FileText,
   FolderTree,
   LayoutDashboard,
@@ -22,5 +23,10 @@ export const ADMIN_SIDEBAR_ITEMS: ISidebarItem[] = [
     label: "Categories",
     href: "/dashboard/admin/categories",
     icon: Tags,
+  },
+  {
+    label: "Bookings",
+    href: "/dashboard/admin/bookings",
+    icon: CalendarCheck,
   },
 ];

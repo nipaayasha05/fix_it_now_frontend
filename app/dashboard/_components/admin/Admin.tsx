@@ -1,6 +1,7 @@
 import React from "react";
 import { getOverview } from "../../_actions/admin/getOverview";
 import { Users, CalendarCheck, DollarSign } from "lucide-react";
+import OverviewChart from "./OverviewChart";
 
 const Admin = async () => {
   const overview = await getOverview();
@@ -28,12 +29,31 @@ const Admin = async () => {
     },
   ];
 
+  // Chart data
+  const chartData = [
+    {
+      name: "Users",
+      value: data?.totalUsers ?? 0,
+    },
+    {
+      name: "Bookings",
+      value: data?.activeBookings ?? 0,
+    },
+    {
+      name: "Revenue",
+      value: data?.totalRevenue ?? 0,
+    },
+  ];
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          Admin Dashboard
+        </h1>
+
+        <p className="mt-2 text-gray-500 dark:text-gray-400">
           Overview of your platform performance
         </p>
       </div>
@@ -71,6 +91,9 @@ const Admin = async () => {
           );
         })}
       </div>
+
+      {/* Dynamic Chart */}
+      <OverviewChart data={chartData} />
     </div>
   );
 };

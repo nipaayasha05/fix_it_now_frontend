@@ -31,7 +31,7 @@ export default function LoginForm() {
       password: "123456",
     },
     TECHNICIAN: {
-      email: "technician@gmail.com",
+      email: "abir2@gmail.com",
       password: "123456",
     },
   };

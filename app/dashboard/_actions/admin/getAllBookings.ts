@@ -2,7 +2,7 @@
 
 import { isAccessTokenExists } from "@/app/server/auth/refreshToken";
 
-export const getAllUsers = async ({
+export const getAllBookings = async ({
   query,
   page = 1,
   limit = 10,
@@ -11,7 +11,10 @@ export const getAllUsers = async ({
   page?: number;
   limit?: number;
 }) => {
+  // console.log("BOOKING 1");
   const accessToken = await isAccessTokenExists();
+
+  // console.log("BOOKING 2", !!accessToken);
 
   if (!accessToken) {
     return {
@@ -37,7 +40,7 @@ export const getAllUsers = async ({
   params.set("limit", limit.toString());
 
   const res = await fetch(
-    `${process.env.BACKEND_API_URL}/api/admin/users?${params.toString()}`,
+    `${process.env.BACKEND_API_URL}/api/bookings/admin?${params.toString()}`,
     {
       headers: {
         Cookie: `accessToken=${accessToken}`,
@@ -46,9 +49,11 @@ export const getAllUsers = async ({
       cache: "no-store",
     },
   );
-  if (!res.ok) {
-    throw new Error(res.statusText || "Failed to get users");
-  }
+  console.log("STATUS:", res.status);
+
   const result = await res.json();
+  if (!result.success) {
+    throw new Error(result.message || "Failed to get bookings");
+  }
   return result;
 };

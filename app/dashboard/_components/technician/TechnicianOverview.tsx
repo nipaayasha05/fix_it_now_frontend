@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { BookingStatusBadge } from "../customer/customerHome/BookingStatusBadge";
 import { getDashboard } from "../../_actions/technician/getDashboard";
+import TechnicianChart from "./TechnicianChart";
 
 const TechnicianOverview = async () => {
   const availability = await getTechnicianAvailability();
@@ -32,6 +33,41 @@ const TechnicianOverview = async () => {
   const profile = technician.data.technician;
 
   const slots = availability.data ?? [];
+
+  const chartData = [
+    {
+      name: "Upcoming",
+      value: dashboard.data?.upcomingJobs ?? 0,
+    },
+    {
+      name: "Pending",
+      value: dashboard.data?.pedingRequests ?? 0,
+    },
+    {
+      name: "Completed",
+      value: dashboard.data?.completedRequests ?? 0,
+    },
+    {
+      name: "Earnings",
+      value: dashboard.data?.totalEarnings ?? 0,
+    },
+    {
+      name: "Experience",
+      value: profile.experience ?? 0,
+    },
+    {
+      name: "Rating",
+      value: profile.averageRating ?? 0,
+    },
+    {
+      name: "Reviews",
+      value: profile.totalReviews ?? 0,
+    },
+    {
+      name: "Availability",
+      value: slots.length,
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -157,6 +193,9 @@ const TechnicianOverview = async () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Job Chart */}
+      <TechnicianChart data={chartData} />
 
       {/* Bio & Skills */}
       <div className="grid gap-6 lg:grid-cols-2">

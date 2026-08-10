@@ -24,6 +24,7 @@ import { BookingStatusBadge } from "./BookingStatusBadge";
 import { PaymentStatusBadge } from "./PaymentStatusBadge";
 import { getMyPayments } from "@/app/dashboard/_actions/customer/getPayments";
 import { getMyBookings } from "@/app/dashboard/_actions/customer/getBooking";
+import CustomerChart from "./CustomerCharts";
 
 interface Booking {
   id: string;
@@ -64,6 +65,25 @@ const CustomerOverview = async () => {
   const totalSpent = payments
     .filter((payment: Payment) => payment.status === "SUCCESS")
     .reduce((total: number, payment: Payment) => total + payment.amount, 0);
+
+  const chartData = [
+    {
+      name: "Bookings",
+      value: totalBookings,
+    },
+    {
+      name: "Successful Payments",
+      value: totalPayments,
+    },
+    {
+      name: "Pending",
+      value: pendingBookings,
+    },
+    {
+      name: "Total Spent",
+      value: totalSpent,
+    },
+  ];
 
   return (
     <div className="space-y-8">
@@ -126,6 +146,10 @@ const CustomerOverview = async () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Overview Chart */}
+
+      <CustomerChart data={chartData} />
 
       {/* Recent Bookings */}
 

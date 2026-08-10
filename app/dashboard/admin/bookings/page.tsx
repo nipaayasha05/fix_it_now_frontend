@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
-import Users from "../../_components/admin/users/Users";
 import SkeletonPage from "@/app/(public)/_components/skeleton/Skeleton";
+import AllBookings from "../../_components/admin/bookings/AllBookings";
 
-const UsersPage = async ({
+const AllUsersBookings = async ({
   searchParams,
 }: {
   searchParams: Promise<{
@@ -10,13 +10,14 @@ const UsersPage = async ({
   }>;
 }) => {
   const query = await searchParams;
+
   return (
     <div>
       <Suspense fallback={<SkeletonPage />}>
-        <Users searchParams={query} />
+        <AllBookings searchParams={query} />
       </Suspense>
     </div>
   );
 };
 
-export default UsersPage;
+export default AllUsersBookings;

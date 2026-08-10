@@ -14,6 +14,7 @@ import {
   Sun,
   Moon,
   Menu,
+  BookOpen,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -43,7 +44,16 @@ const navLinks = [
   { label: "Services", href: "/services", icon: BriefcaseBusiness },
   { label: "Technicians", href: "/technicians", icon: Users },
   { label: "About", href: "/about", icon: Info },
-  // { label: "Contact", href: "/contact", icon: Phone },
+  {
+    label: "Blogs",
+    href: "/blogs",
+    icon: BookOpen,
+  },
+  // {
+  //   label: "Category",
+  //   href: "/blogsr",
+  //   icon: BookOpen,
+  // },
 ];
 
 // User dropdown options, also kept in an array
