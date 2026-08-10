@@ -26,6 +26,7 @@ interface TopTechniciansProps {
 }
 
 const TopTechnicians = ({ technicians }: TopTechniciansProps) => {
+  // console.log("technicians:", technicians);
   return (
     <section className="py-14 bg-slate-50 dark:bg-slate-950">
       <div className="container mx-auto px-4">

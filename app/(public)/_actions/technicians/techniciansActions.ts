@@ -44,7 +44,7 @@ export const getAllTechnicians = async ({
 
 export const getTechnicianById = async (id: string) => {
   const res = await fetch(
-    `${process.env.BACKEND_API_URL}/api/technicians/${id}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/technicians/${id}`,
     {
       // next: {
       //   revalidate: 60,
