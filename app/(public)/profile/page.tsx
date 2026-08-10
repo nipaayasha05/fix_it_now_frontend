@@ -6,6 +6,10 @@ import SkeletonPage from "../_components/skeleton/Skeleton";
 
 const Profile = async () => {
   const user = await getMe();
+  console.log("PROFILE GET ME:", user);
+  if (!user.success || !user.data) {
+    return <div>Unable to load profile.</div>;
+  }
   return (
     <div>
       <Suspense fallback={<SkeletonPage />}>
