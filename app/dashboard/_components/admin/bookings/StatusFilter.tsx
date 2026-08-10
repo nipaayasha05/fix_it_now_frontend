@@ -22,7 +22,6 @@ const StatusFilter = ({ currentStatus }: StatusFilterProps) => {
       params.set("status", value);
     }
 
-    // Filter change করলে প্রথম page-এ যাবে
     params.set("page", "1");
 
     router.push(`${pathname}?${params.toString()}`);

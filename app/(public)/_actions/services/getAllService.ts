@@ -26,11 +26,6 @@ export const getAllServices = async ({
   params.set("page", page.toString());
   params.set("limit", limit.toString());
 
-  console.log("QUERY FROM FRONTEND:", query);
-  console.log("PAGE:", page);
-  console.log("LIMIT:", limit);
-  console.log("PARAMS:", params.toString());
-
   const res = await fetch(
     `${process.env.BACKEND_API_URL}/api/services?${params.toString()}`,
     {

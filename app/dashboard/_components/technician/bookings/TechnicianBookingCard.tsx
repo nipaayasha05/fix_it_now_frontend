@@ -26,6 +26,8 @@ import { toast } from "sonner";
 
 type MyBookingCardProps = {
   booking: TBooking;
+  page: number;
+  limit: number;
 };
 
 const TechnicianBookingCard = ({ booking }: MyBookingCardProps) => {

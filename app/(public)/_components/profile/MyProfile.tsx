@@ -13,7 +13,6 @@ interface MyProfileProps {
 }
 
 const MyProfile = ({ user }: MyProfileProps) => {
-  console.log("MY PROFILE USER:", user);
   const [isEditing, setIsEditing] = useState(false);
 
   const [name, setName] = useState(user.name);

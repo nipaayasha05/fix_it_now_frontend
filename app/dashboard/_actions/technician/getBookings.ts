@@ -2,7 +2,15 @@
 
 import { isAccessTokenExists } from "@/app/server/auth/refreshToken";
 
-export const getBookings = async () => {
+export const getBookings = async ({
+  query,
+  page = 1,
+  limit = 6,
+}: {
+  query?: { [key: string]: string | string[] | undefined };
+  page?: number;
+  limit?: number;
+}) => {
   const accessToken = await isAccessTokenExists();
 
   if (!accessToken) {
@@ -12,8 +20,24 @@ export const getBookings = async () => {
     };
   }
 
+  const params = new URLSearchParams();
+
+  if (query && query.searchTerm) {
+    params.set("searchTerm", query.searchTerm as string);
+  }
+  if (query) {
+    Object.entries(query).forEach(([key, value]) => {
+      if (typeof value === "string" && value.trim() !== "") {
+        params.set(key, value);
+      }
+    });
+  }
+
+  params.set("page", page.toString());
+  params.set("limit", limit.toString());
+
   const res = await fetch(
-    `${process.env.BACKEND_API_URL}/api/technician/bookings`,
+    `${process.env.BACKEND_API_URL}/api/technician/bookings?${params.toString()}`,
     {
       method: "GET",
       headers: {

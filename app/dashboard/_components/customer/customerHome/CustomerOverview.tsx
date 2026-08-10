@@ -47,10 +47,12 @@ interface Payment {
 
 const CustomerOverview = async () => {
   const paymentResponse = await getMyPayments();
-  const bookingResponse = await getMyBookings();
+  const bookingResponse = await getMyBookings({
+    query: { status: "ACCEPTED" },
+  });
 
   const payments = paymentResponse.data ?? [];
-  const bookings = bookingResponse.data ?? [];
+  const bookings = bookingResponse.data?.data ?? [];
 
   const totalBookings = bookings.length;
 

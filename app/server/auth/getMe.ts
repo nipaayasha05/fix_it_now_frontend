@@ -20,9 +20,7 @@ export const getMe = async () => {
     cache: "no-store",
   });
 
-  console.log("GET ME STATUS:", res.status);
-
   const result = await res.json();
-  console.log("GET ME RESULT:", result);
+
   return result;
 };

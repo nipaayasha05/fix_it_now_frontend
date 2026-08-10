@@ -33,7 +33,7 @@ const CustomerTestimonials = () => {
           setReviews(result.data || []);
         }
       } catch (error) {
-        console.error("Failed to load reviews:", error);
+        // console.error("Failed to load reviews:", error);
       } finally {
         setLoading(false);
       }

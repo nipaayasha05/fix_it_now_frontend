@@ -39,8 +39,5 @@ export const editMyInfo = async (
 
   const data = await res.json();
 
-  console.log("PATCH STATUS:", res.status);
-  console.log("PATCH RESPONSE:", data);
-
   return data;
 };

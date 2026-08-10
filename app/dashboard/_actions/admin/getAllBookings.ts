@@ -49,7 +49,6 @@ export const getAllBookings = async ({
       cache: "no-store",
     },
   );
-  console.log("STATUS:", res.status);
 
   const result = await res.json();
   if (!result.success) {
